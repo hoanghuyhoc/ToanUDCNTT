@@ -23,7 +23,7 @@ std::vector<int> *PrimeFactorize(int A)
     std::vector<int> PrimeFactors, Exponents;
     for (int i = 2; i <= A; i++)
     {
-        if (CheckPrime(i)) // i is a prime number
+        if (CheckPrime(i))
         {
             if (A % i == 0)
             {

@@ -1,6 +1,5 @@
 #include <vector>
 #include <math.h>
-#include "quicksort.h"
 
 int NumOfFactors(std::vector<int> Exponents)
 {
@@ -15,27 +14,29 @@ int *ListOfFactors(int FactorCount, std::vector<int> PrimeFactors, std::vector<i
 {
     int *factors = new int[FactorCount];
     factors[0] = 1;
-    int i = 1;
-    int temp[Exponents.size()]{0};
-
-    while (i < FactorCount)
+    if (FactorCount > 1)
     {
-        int factor = 1, j = Exponents.size() - 1;
+        int i = 1;
+        int temp[Exponents.size()]{0};
 
-        while (temp[j] == Exponents[j])
+        while (i < FactorCount)
         {
-            temp[j] = 0;
-            j--;
+            int factor = 1, j = Exponents.size() - 1;
+
+            while (temp[j] == Exponents[j])
+            {
+                temp[j] = 0;
+                j--;
+            }
+            temp[j]++;
+            for (int k = 0; k < Exponents.size(); k++)
+            {
+                factor *= (int)pow(PrimeFactors[k], temp[k]);
+            }
+            factors[i] = factor;
+            i++;
         }
-        temp[j]++;
-        for (int k = 0; k < Exponents.size(); k++)
-        {
-            factor *= (int)pow(PrimeFactors[k], temp[k]);
-        }
-        factors[i] = factor;
-        i++;
     }
-    quicksort(factors, 0, FactorCount - 1);
     return factors;
 }
 

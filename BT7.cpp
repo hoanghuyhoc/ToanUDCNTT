@@ -1,9 +1,11 @@
 #include <iostream>
-#include <conio.h>
+#include <vector>
 
-int* SieveOfEratosthenes(int n)
+std::vector<int> SieveOfEratosthenes(int n, long long &sum)
 {
+    std::vector<int> prime;
     int *sieve = new int[n + 1]{0};
+
     for (int i = 2; i <= n; i++)
     {
         if (sieve[i] == 0)
@@ -12,26 +14,27 @@ int* SieveOfEratosthenes(int n)
             {
                 sieve[j] = i;
             }
+            sum += i;
+            prime.push_back(i);
         }
     }
-    return sieve;
+
+    return prime;
 }
 
 int main()
 {
     int n;
+    long long sum = 0;
+    long long product = 1;
     std::cout << "Nhap n: ";
     std::cin >> n;
-    std::cout << "Cac so nguyen to nho hon " << n << " la: ";
-    int *sieve = SieveOfEratosthenes(n);
-    for (int i = 2; i <= n; i++)
+    std::cout << "Cac so nguyen to <= " << n << " la: ";
+    std::vector<int> sieve = SieveOfEratosthenes(n, sum);
+    for (int i = 0; i < sieve.size(); i++)
     {
-        if (sieve[i] == 0)
-        {
-            std::cout << i << " ";
-        }
+        std::cout << sieve[i] << " ";
     }
-    delete[] sieve;
-    getch();
+    std::cout << "\nTong cac so nguyen to <= " << n << " la: " << sum;
     return 0;
 }
